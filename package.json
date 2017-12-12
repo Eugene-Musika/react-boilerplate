@@ -1,203 +1,206 @@
 {
-  "name": "my-project",
-  "version": "0.1.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
-  },
-  "engines": {
-    "npm": ">=3",
-    "node": ">=5"
-  },
-  "author": "Eugene Musika",
-  "license": "MIT",
-  "scripts": {
-    "analyze:clean": "rimraf stats.json",
-    "preanalyze": "npm run analyze:clean",
-    "analyze": "node ./internals/scripts/analyze.js",
-    "extract-intl": "babel-node --presets env,stage-0 -- ./internals/scripts/extract-intl.js",
-    "npmcheckversion": "node ./internals/scripts/npmcheckversion.js",
-    "preinstall": "npm run npmcheckversion",
-    "postinstall": "npm run build:dll",
-    "prebuild": "npm run build:clean",
-    "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
-    "build:clean": "rimraf ./build",
-    "build:dll": "node ./internals/scripts/dependencies.js",
-    "start": "cross-env NODE_ENV=development node server",
-    "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
-    "start:production": "npm run test && npm run build && npm run start:prod",
-    "start:prod": "cross-env NODE_ENV=production node server",
-    "presetup": "npm i chalk shelljs",
-    "setup": "node ./internals/scripts/setup.js",
-    "postsetup": "npm run build:dll",
-    "clean": "shjs ./internals/scripts/clean.js",
-    "clean:all": "npm run analyze:clean && npm run test:clean && npm run build:clean",
-    "generate": "plop --plopfile internals/generators/index.js",
-    "lint": "npm run lint:js",
-    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
-    "lint:js": "npm run lint:eslint -- . ",
-    "lint:staged": "lint-staged",
-    "pretest": "npm run test:clean && npm run lint",
-    "test:clean": "rimraf ./coverage",
-    "test": "cross-env NODE_ENV=test jest --coverage",
-    "test:watch": "cross-env NODE_ENV=test jest --watchAll",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
-  },
-  "lint-staged": {
-    "*.js": "lint:eslint"
-  },
-  "pre-commit": "lint:staged",
-
-  "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "chalk": "^2.3.0",
-    "compression": "^1.7.1",
-    "cross-env": "^5.1.1",
-    "express": "^4.16.2",
-    "fontfaceobserver": "^2.0.13",
-    "history": "^4.7.2",
-    "hoist-non-react-statics": "^2.3.1",
-    "immutable": "^3.8.2",
-    "intl": "^1.2.5",
-    "invariant": "^2.2.2",
-    "ip": "^1.1.5",
-    "lodash": "^4.17.4",
-    "minimist": "^1.2.0",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-helmet": "^5.2.0",
-    "react-intl": "^2.4.0",
-    "react-loadable": "^5.3.1",
-    "react-redux": "^5.0.6",
-    "react-router-dom": "^4.2.2",
-    "react-router-redux": "5.0.0-alpha.6",
-    "redux": "^3.7.2",
-    "redux-immutable": "^4.0.0",
-    "redux-saga": "^0.16.0",
-    "reselect": "^3.0.1",
-    "sanitize.css": "^5.0.0",
-    "styled-components": "^2.2.4",
-    "warning": "^3.0.0",
-    "whatwg-fetch": "^2.0.3"
-  },
-  "devDependencies": {
-    "add-asset-html-webpack-plugin": "^2.1.2",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.3",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
-    "babel-plugin-react-intl": "^2.3.1",
-    "babel-plugin-react-transform": "^3.0.0",
-    "babel-plugin-styled-components": "^1.3.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-plugin-transform-react-constant-elements": "^6.23.0",
-    "babel-plugin-transform-react-inline-elements": "^6.22.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.10",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "circular-dependency-plugin": "^4.3.0",
-    "coveralls": "^3.0.0",
-    "css-loader": "^0.28.7",
-    "enzyme": "^3.2.0",
-    "eslint": "^3.19.0",
-    "eslint-import-resolver-webpack": "^0.8.3",
-    "eslint-plugin-flowtype": "^2.40.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.5.1",
-    "eslint-plugin-redux-saga": "^0.6.0",
-    "eventsource-polyfill": "^0.9.6",
-    "exports-loader": "^0.6.4",
-    "file-loader": "^1.1.5",
-    "html-loader": "^0.5.1",
-    "html-webpack-plugin": "^2.30.1",
-    "image-webpack-loader": "^3.4.2",
-    "imports-loader": "^0.7.1",
-    "jest-cli": "^21.2.1",
-    "lint-staged": "^6.0.0",
-    "ngrok": "^2.2.24",
-    "node-plop": "^0.9.0",
-    "null-loader": "^0.1.1",
-    "offline-plugin": "^4.8.5",
-    "plop": "^1.9.0",
-    "pre-commit": "^1.2.2",
-    "react-test-renderer": "^16.2.0",
-    "rimraf": "^2.6.2",
-    "shelljs": "^0.7.8",
-    "style-loader": "^0.19.0",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.10.0",
-    "webpack-dev-middleware": "^1.12.2",
-    "webpack-hot-middleware": "^2.21.0"
-  },
-
-  "babel": {
-    "plugins": [
-      "styled-components"
-    ],
-    "presets": [
-      [
-        "env",
-        {
-          "modules": false
-        }
-      ],
-      "react",
-      "stage-0"
-    ],
-    "env": {
-      "production": {
-        "only": [
-          "app"
-        ],
-        "plugins": [
-          "transform-react-remove-prop-types",
-          "transform-react-constant-elements",
-          "transform-react-inline-elements"
-        ]
-      },
-      "test": {
-        "plugins": [
-          "transform-es2015-modules-commonjs",
-          "dynamic-import-node"
-        ]
-      }
-    }
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": [
-      "eslint:recommended",
-      "plugin:import/errors",
-      "plugin:import/warnings",
-      "plugin:react/recommended"
-    ],
-    "env": {
-      "browser": true,
-      "node": true,
-      "jest": true,
-      "es6": true
-    },
-    "plugins": [
-      "react",
-      "redux-saga",
-      "jsx-a11y",
-      "flowtype"
-    ],
-    "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 8,
-      "ecmaFeatures": {
-        "experimentalObjectRestSpread": true,
-        "impliedStrict": true,
-        "jsx": true
-      }
-    },
-    "rules": {
+	"name": "my-project",
+	"version": "0.1.0",
+	"description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/react-boilerplate/react-boilerplate.git"
+	},
+	"engines": {
+		"npm": ">=3",
+		"node": ">=5"
+	},
+	"author": "Eugene Musika",
+	"license": "MIT",
+	"scripts": {
+		"analyze:clean": "rimraf stats.json",
+		"preanalyze": "npm run analyze:clean",
+		"analyze": "node ./internals/scripts/analyze.js",
+		"extract-intl": "babel-node --presets env,stage-0 -- ./internals/scripts/extract-intl.js",
+		"npmcheckversion": "node ./internals/scripts/npmcheckversion.js",
+		"preinstall": "npm run npmcheckversion",
+		"postinstall": "npm run build:dll",
+		"prebuild": "npm run build:clean",
+		"build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
+		"build:clean": "rimraf ./build",
+		"build:dll": "node ./internals/scripts/dependencies.js",
+		"start": "cross-env NODE_ENV=development node server",
+		"start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
+		"start:production": "npm run test && npm run build && npm run start:prod",
+		"start:prod": "cross-env NODE_ENV=production node server",
+		"presetup": "npm i chalk shelljs",
+		"setup": "node ./internals/scripts/setup.js",
+		"postsetup": "npm run build:dll",
+		"clean": "shjs ./internals/scripts/clean.js",
+		"clean:all": "npm run analyze:clean && npm run test:clean && npm run build:clean",
+		"generate": "plop --plopfile internals/generators/index.js",
+		"lint": "npm run lint:js",
+		"lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
+		"lint:js": "npm run lint:eslint -- . ",
+		"lint:staged": "lint-staged",
+		"pretest": "npm run test:clean && npm run lint",
+		"test:clean": "rimraf ./coverage",
+		"test": "cross-env NODE_ENV=test jest --coverage",
+		"test:watch": "cross-env NODE_ENV=test jest --watchAll",
+		"coveralls": "cat ./coverage/lcov.info | coveralls"
+	},
+	"lint-staged": {
+		"*.js": "lint:eslint"
+	},
+	"pre-commit": "lint:staged",
+	"dependencies": {
+		"babel-polyfill": "^6.26.0",
+		"chalk": "^2.3.0",
+		"compression": "^1.7.1",
+		"cross-env": "^5.1.1",
+		"express": "^4.16.2",
+		"fontfaceobserver": "^2.0.13",
+		"history": "^4.7.2",
+		"hoist-non-react-statics": "^2.3.1",
+		"immutable": "^3.8.2",
+		"intl": "^1.2.5",
+		"invariant": "^2.2.2",
+		"ip": "^1.1.5",
+		"lodash": "^4.17.4",
+		"minimist": "^1.2.0",
+		"prop-types": "^15.6.0",
+		"react": "^16.2.0",
+		"react-dom": "^16.2.0",
+		"react-helmet": "^5.2.0",
+		"react-intl": "^2.4.0",
+		"react-loadable": "^5.3.1",
+		"react-redux": "^5.0.6",
+		"react-router-dom": "^4.2.2",
+		"react-router-redux": "5.0.0-alpha.6",
+		"redux": "^3.7.2",
+		"redux-immutable": "^4.0.0",
+		"redux-saga": "^0.16.0",
+		"reselect": "^3.0.1",
+		"sanitize.css": "^5.0.0",
+		"styled-components": "^2.2.4",
+		"warning": "^3.0.0",
+		"whatwg-fetch": "^2.0.3"
+	},
+	"devDependencies": {
+		"add-asset-html-webpack-plugin": "^2.1.2",
+		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.0",
+		"babel-eslint": "^8.0.3",
+		"babel-loader": "^7.1.2",
+		"babel-plugin-dynamic-import-node": "^1.2.0",
+		"babel-plugin-react-intl": "^2.3.1",
+		"babel-plugin-react-transform": "^3.0.0",
+		"babel-plugin-styled-components": "^1.3.0",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+		"babel-plugin-transform-react-constant-elements": "^6.23.0",
+		"babel-plugin-transform-react-inline-elements": "^6.22.0",
+		"babel-plugin-transform-react-remove-prop-types": "^0.4.10",
+		"babel-preset-env": "^1.6.1",
+		"babel-preset-react": "^6.24.1",
+		"babel-preset-stage-0": "^6.24.1",
+		"circular-dependency-plugin": "^4.3.0",
+		"coveralls": "^3.0.0",
+		"css-loader": "^0.28.7",
+		"enzyme": "^3.2.0",
+		"eslint": "^4.13.1",
+		"eslint-import-resolver-webpack": "^0.8.3",
+		"eslint-plugin-flowtype": "^2.40.1",
+		"eslint-plugin-import": "^2.8.0",
+		"eslint-plugin-jsx-a11y": "^5.1.1",
+		"eslint-plugin-react": "^7.5.1",
+		"eslint-plugin-redux-saga": "^0.6.0",
+		"eventsource-polyfill": "^0.9.6",
+		"exports-loader": "^0.6.4",
+		"file-loader": "^1.1.5",
+		"html-loader": "^0.5.1",
+		"html-webpack-plugin": "^2.30.1",
+		"image-webpack-loader": "^3.4.2",
+		"imports-loader": "^0.7.1",
+		"jest-cli": "^21.2.1",
+		"lint-staged": "^6.0.0",
+		"ngrok": "^2.2.24",
+		"node-plop": "^0.9.0",
+		"null-loader": "^0.1.1",
+		"offline-plugin": "^4.8.5",
+		"plop": "^1.9.0",
+		"pre-commit": "^1.2.2",
+		"react-test-renderer": "^16.2.0",
+		"rimraf": "^2.6.2",
+		"shelljs": "^0.7.8",
+		"style-loader": "^0.19.0",
+		"stylelint": "^8.3.1",
+		"stylelint-config-sass-guidelines": "^4.0.1",
+		"stylelint-order": "^0.7.0",
+		"stylelint-processor-html": "^1.0.0",
+		"stylelint-scss": "^2.2.0",
+		"url-loader": "^0.6.2",
+		"webpack": "^3.10.0",
+		"webpack-dev-middleware": "^1.12.2",
+		"webpack-hot-middleware": "^2.21.0"
+	},
+	"babel": {
+		"plugins": [
+			"styled-components"
+		],
+		"presets": [
+			[
+				"env",
+				{
+					"modules": false
+				}
+			],
+			"react",
+			"stage-0"
+		],
+		"env": {
+			"production": {
+				"only": [
+					"app"
+				],
+				"plugins": [
+					"transform-react-remove-prop-types",
+					"transform-react-constant-elements",
+					"transform-react-inline-elements"
+				]
+			},
+			"test": {
+				"plugins": [
+					"transform-es2015-modules-commonjs",
+					"dynamic-import-node"
+				]
+			}
+		}
+	},
+	"eslintConfig": {
+		"parser": "babel-eslint",
+		"extends": [
+			"eslint:recommended",
+			"plugin:import/errors",
+			"plugin:import/warnings",
+			"plugin:react/recommended"
+		],
+		"env": {
+			"browser": true,
+			"node": true,
+			"jest": true,
+			"es6": true
+		},
+		"plugins": [
+			"react",
+			"redux-saga",
+			"jsx-a11y",
+			"flowtype"
+		],
+		"parserOptions": {
+			"sourceType": "module",
+			"ecmaVersion": 8,
+			"ecmaFeatures": {
+				"experimentalObjectRestSpread": true,
+				"impliedStrict": true,
+				"jsx": true
+			}
+		},
+		"rules": {
 			"accessor-pairs": 2,
 			"array-bracket-spacing": [
 				1,
@@ -284,13 +287,13 @@
 					}
 				}
 			],
-      "jsx-a11y/aria-props": 2,
-      "jsx-a11y/heading-has-content": 0,
-      "jsx-a11y/href-no-hash": 2,
-      "jsx-a11y/label-has-for": 2,
-      "jsx-a11y/mouse-events-have-key-events": 2,
-      "jsx-a11y/role-has-required-aria-props": 2,
-      "jsx-a11y/role-supports-aria-props": 2,
+			"jsx-a11y/aria-props": 2,
+			"jsx-a11y/heading-has-content": 0,
+			"jsx-a11y/href-no-hash": 2,
+			"jsx-a11y/label-has-for": 2,
+			"jsx-a11y/mouse-events-have-key-events": 2,
+			"jsx-a11y/role-has-required-aria-props": 2,
+			"jsx-a11y/role-supports-aria-props": 2,
 			"key-spacing": 1,
 			"keyword-spacing": 1,
 			"linebreak-style": [
@@ -323,10 +326,10 @@
 				}
 			],
 			"multiline-ternary": [
-        1,
+				1,
 				"always-multiline"
 			],
-      "newline-after-var": 1,
+			"newline-after-var": 1,
 			"new-cap": 2,
 			"no-array-constructor": 1,
 			"no-await-in-loop": 1,
@@ -356,23 +359,23 @@
 			"no-extra-bind": 1,
 			"no-extra-label": 2,
 			"no-extra-parens": [
-        1,
+				1,
 				"all",
 				{
-          "ignoreJSX": "all"
+					"ignoreJSX": "all"
 				}
 			],
 			"no-floating-decimal": 1,
-      "no-global-assign": 2,
+			"no-global-assign": 2,
 			"no-implied-eval": 2,
 			"no-lone-blocks": 1,
 			"no-lonely-if": 1,
 			"no-loop-func": 1,
 			"no-multi-str": 1,
 			"no-multiple-empty-lines": [
-        1,
+				1,
 				{
-          "max": 5
+					"max": 5
 				}
 			],
 			"no-negated-condition": 1,
@@ -383,12 +386,15 @@
 			"no-script-url": 2,
 			"no-self-compare": 2,
 			"no-template-curly-in-string": 2,
-      "no-undef-init": 1,
+			"no-undef-init": 1,
 			"no-unmodified-loop-condition": 1,
 			"no-unneeded-ternary": 1,
-			"no-unused-vars": [1, {
-				"argsIgnorePattern": "^_"
-			}],
+			"no-unused-vars": [
+				1,
+				{
+					"argsIgnorePattern": "^_"
+				}
+			],
 			"no-use-before-define": [
 				2,
 				{
@@ -445,20 +451,20 @@
 				1,
 				"as-needed"
 			],
-      "react/display-name": [
-        1,
-        {
-          "ignoreTranspilerName": false
-        }
-      ],
-      "react/forbid-prop-types": [
-        1,
-        {
-          "forbid": [
-            "any"
-          ]
-        }
-      ],
+			"react/display-name": [
+				1,
+				{
+					"ignoreTranspilerName": false
+				}
+			],
+			"react/forbid-prop-types": [
+				1,
+				{
+					"forbid": [
+						"any"
+					]
+				}
+			],
 			"react/jsx-curly-spacing": [
 				1,
 				{
@@ -476,10 +482,10 @@
 			"react/prefer-es6-class": 1,
 			"react/self-closing-comp": 1,
 			"react/sort-comp": 1,
-      "redux-saga/no-yield-in-race": 2,
-      "redux-saga/yield-effects": 2,
+			"redux-saga/no-yield-in-race": 2,
+			"redux-saga/yield-effects": 2,
 			"require-await": 2,
-      "require-yield": 0,
+			"require-yield": 0,
 			"rest-spread-spacing": 1,
 			"semi": [
 				"warn",
@@ -546,58 +552,545 @@
 				1,
 				"after"
 			]
-    },
-    "settings": {
-      "import/resolver": {
-        "webpack": {
-          "config": "/internals/webpack/webpack.prod.babel.js"
-        }
-      }
-    }
-  },
-  "dllPlugin": {
-    "path": "node_modules/react-boilerplate-dlls",
-    "exclude": [
-      "chalk",
-      "compression",
-      "cross-env",
-      "express",
-      "ip",
-      "minimist",
-      "sanitize.css"
-    ],
-    "include": [
-      "core-js",
-      "lodash",
-      "eventsource-polyfill"
-    ]
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "app/**/*.{js,jsx}",
-      "!app/**/*.test.{js,jsx}",
-      "!app/*/RbGenerated*/*.{js,jsx}",
-      "!app/app.js",
-      "!app/global-styles.js",
-      "!app/*/*/Loadable.{js,jsx}"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "statements": 98,
-        "branches": 91,
-        "functions": 98,
-        "lines": 98
-      }
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "app"
-    ],
-    "moduleNameMapper": {
-      ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
-      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
-    },
-    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
-    "testRegex": "tests/.*\\.test\\.js$"
-  }
+		},
+		"settings": {
+			"import/resolver": {
+				"webpack": {
+					"config": "/internals/webpack/webpack.prod.babel.js"
+				}
+			}
+		}
+	},
+	"stylelint": {
+		"extends": "stylelint-config-sass-guidelines",
+		"processors": [
+			"stylelint-processor-html"
+		],
+		"plugins": [
+			"stylelint-order"
+		],
+		"rules": {
+			"indentation": [
+				"tab",
+				{
+					"severity": "warning"
+				}
+			],
+			"max-empty-lines": [
+				2,
+				{
+					"severity": "warning"
+				}
+			],
+			"declaration-empty-line-before": [
+				"always",
+				{
+					"except": [
+						"after-declaration",
+						"first-nested"
+					],
+					"ignore": [
+						"after-comment",
+						"inside-single-line-block"
+					],
+					"severity": "warning"
+				}
+			],
+			"no-eol-whitespace": null,
+			"at-rule-empty-line-before": [
+				"always",
+				{
+					"except": [
+						"first-nested",
+						"blockless-after-same-name-blockless"
+					],
+					"ignore": [
+						"after-comment"
+					],
+					"severity": "warning"
+				}
+			],
+			"number-max-precision": [
+				4,
+				{
+					"severity": "warning"
+				}
+			],
+			"number-no-trailing-zeros": [
+				true,
+				{
+					"severity": "warning"
+				}
+			],
+			"string-quotes": [
+				"double",
+				{
+					"severity": "warning"
+				}
+			],
+			"block-closing-brace-empty-line-before": [
+				"never",
+				{
+					"severity": "warning"
+				}
+			],
+			"length-zero-no-unit": [
+				true,
+				{
+					"severity": "warning"
+				}
+			],
+			"time-min-milliseconds": [
+				100,
+				{
+					"severity": "warning"
+				}
+			],
+			"color-hex-length": [
+				"short",
+				{
+					"severity": "warning"
+				}
+			],
+			"shorthand-property-no-redundant-values": [
+				true,
+				{
+					"severity": "warning"
+				}
+			],
+			"selector-attribute-quotes": "always",
+			"selector-no-qualifying-type": null,
+			"selector-max-id": 0,
+			"no-descending-specificity": [
+				true,
+				{
+					"severity": "warning"
+				}
+			],
+			"max-nesting-depth": [
+				5,
+				{
+					"severity": "warning",
+					"ignore": [
+						"blockless-at-rules"
+					]
+				}
+			],
+			"selector-list-comma-newline-after": [
+				"always",
+				{
+					"severity": "warning"
+				}
+			],
+			"no-missing-end-of-source-newline": null,
+			"order/properties-alphabetical-order": null,
+			"selector-max-compound-selectors": 5,
+			"selector-class-pattern": [
+				"^([a-z0-9]+(-{1,2}|_{2})?)*$",
+				{
+					"resolveNestedSelectors": true
+				}
+			],
+			"order/order": [
+				[
+					"custom-properties",
+					"dollar-variables",
+					{
+						"type": "at-rule",
+						"name": "extend"
+					},
+					"declarations",
+					"at-rules",
+					"rules"
+				],
+				{
+					"severity": "warning"
+				}
+			],
+			"order/properties-order": [
+				[
+					{
+						"properties": [
+							"position",
+							"z-index",
+							"top",
+							"right",
+							"bottom",
+							"left"
+						]
+					},
+					{
+						"properties": [
+							"display",
+							"visibility",
+							"float",
+							"clear",
+							"overflow",
+							"overflow-x",
+							"overflow-y",
+							"-ms-overflow-x",
+							"-ms-overflow-y",
+							"clip",
+							"zoom",
+							"flex-direction",
+							"flex-wrap",
+							"flex-flow",
+							"justify-content",
+							"align-items",
+							"align-content",
+							"order",
+							"flex-grow",
+							"flex-shrink",
+							"flex-basis",
+							"flex",
+							"align-self",
+							"flex-direction",
+							"flex-order",
+							"flex-pack",
+							"flex-align"
+						]
+					},
+					{
+						"properties": [
+							"-webkit-box-sizing",
+							"-moz-box-sizing",
+							"box-sizing",
+							"size",
+							"width",
+							"min-width",
+							"max-width",
+							"height",
+							"min-height",
+							"max-height",
+							"margin",
+							"margin-top",
+							"margin-right",
+							"margin-bottom",
+							"margin-left",
+							"padding",
+							"padding-top",
+							"padding-right",
+							"padding-bottom",
+							"padding-left"
+						]
+					},
+					{
+						"properties": [
+							"table-layout",
+							"empty-cells",
+							"caption-side",
+							"border-spacing",
+							"border-collapse",
+							"list-style",
+							"list-style-position",
+							"list-style-type",
+							"list-style-image"
+						]
+					},
+					{
+						"properties": [
+							"content",
+							"quotes",
+							"counter-reset",
+							"counter-increment",
+							"resize",
+							"cursor",
+							"nav-index",
+							"nav-up",
+							"nav-right",
+							"nav-down",
+							"nav-left",
+							"-webkit-transition",
+							"-moz-transition",
+							"-ms-transition",
+							"-o-transition",
+							"transition",
+							"-webkit-transition-delay",
+							"-moz-transition-delay",
+							"-ms-transition-delay",
+							"-o-transition-delay",
+							"transition-delay",
+							"-webkit-transition-timing-function",
+							"-moz-transition-timing-function",
+							"-ms-transition-timing-function",
+							"-o-transition-timing-function",
+							"transition-timing-function",
+							"-webkit-transition-duration",
+							"-moz-transition-duration",
+							"-ms-transition-duration",
+							"-o-transition-duration",
+							"transition-duration",
+							"-webkit-transition-property",
+							"-moz-transition-property",
+							"-ms-transition-property",
+							"-o-transition-property",
+							"transition-property",
+							"-webkit-transform",
+							"-moz-transform",
+							"-ms-transform",
+							"-o-transform",
+							"transform",
+							"-webkit-transform-origin",
+							"-moz-transform-origin",
+							"-ms-transform-origin",
+							"-o-transform-origin",
+							"transform-origin",
+							"-webkit-animation",
+							"-moz-animation",
+							"-ms-animation",
+							"-o-animation",
+							"animation",
+							"-webkit-animation-name",
+							"-moz-animation-name",
+							"-ms-animation-name",
+							"-o-animation-name",
+							"animation-name",
+							"-webkit-animation-duration",
+							"-moz-animation-duration",
+							"-ms-animation-duration",
+							"-o-animation-duration",
+							"animation-duration",
+							"-webkit-animation-play-state",
+							"-moz-animation-play-state",
+							"-ms-animation-play-state",
+							"-o-animation-play-state",
+							"animation-play-state",
+							"-webkit-animation-timing-function",
+							"-moz-animation-timing-function",
+							"-ms-animation-timing-function",
+							"-o-animation-timing-function",
+							"animation-timing-function",
+							"-webkit-animation-delay",
+							"-moz-animation-delay",
+							"-ms-animation-delay",
+							"-o-animation-delay",
+							"animation-delay",
+							"-webkit-animation-iteration-count",
+							"-moz-animation-iteration-count",
+							"-ms-animation-iteration-count",
+							"-o-animation-iteration-count",
+							"animation-iteration-count",
+							"-webkit-animation-iteration-count",
+							"-moz-animation-iteration-count",
+							"-ms-animation-iteration-count",
+							"-o-animation-iteration-count",
+							"animation-iteration-count",
+							"-webkit-animation-direction",
+							"-moz-animation-direction",
+							"-ms-animation-direction",
+							"-o-animation-direction",
+							"animation-direction",
+							"text-align",
+							"-webkit-text-align-last",
+							"-moz-text-align-last",
+							"-ms-text-align-last",
+							"text-align-last",
+							"vertical-align",
+							"white-space",
+							"text-decoration",
+							"text-emphasis",
+							"text-emphasis-color",
+							"text-emphasis-style",
+							"text-emphasis-position",
+							"text-indent",
+							"-ms-text-justify",
+							"text-justify",
+							"text-transform",
+							"letter-spacing",
+							"word-spacing",
+							"-ms-writing-mode",
+							"text-outline",
+							"text-transform",
+							"text-wrap",
+							"text-overflow",
+							"-ms-text-overflow",
+							"text-overflow-ellipsis",
+							"text-overflow-mode",
+							"-ms-word-wrap",
+							"word-wrap",
+							"word-break",
+							"-ms-word-break",
+							"-moz-tab-size",
+							"-o-tab-size",
+							"tab-size",
+							"-webkit-hyphens",
+							"-moz-hyphens",
+							"hyphens",
+							"pointer-events"
+						]
+					},
+					{
+						"properties": [
+							"opacity",
+							"filter:progid:DXImageTransform.Microsoft.Alpha(Opacity",
+							"-ms-filter:'progid:DXImageTransform.Microsoft.Alpha",
+							"-ms-interpolation-mode",
+							"color",
+							"border",
+							"border-collapse",
+							"border-width",
+							"border-style",
+							"border-color",
+							"border-top",
+							"border-top-width",
+							"border-top-style",
+							"border-top-color",
+							"border-right",
+							"border-right-width",
+							"border-right-style",
+							"border-right-color",
+							"border-bottom",
+							"border-bottom-width",
+							"border-bottom-style",
+							"border-bottom-color",
+							"border-left",
+							"border-left-width",
+							"border-left-style",
+							"border-left-color",
+							"-webkit-border-radius",
+							"-moz-border-radius",
+							"border-radius",
+							"-webkit-border-top-left-radius",
+							"-moz-border-radius-topleft",
+							"border-top-left-radius",
+							"-webkit-border-top-right-radius",
+							"-moz-border-radius-topright",
+							"border-top-right-radius",
+							"-webkit-border-bottom-right-radius",
+							"-moz-border-radius-bottomright",
+							"border-bottom-right-radius",
+							"-webkit-border-bottom-left-radius",
+							"-moz-border-radius-bottomleft",
+							"border-bottom-left-radius",
+							"-webkit-border-image",
+							"-moz-border-image",
+							"-o-border-image",
+							"border-image",
+							"-webkit-border-image-source",
+							"-moz-border-image-source",
+							"-o-border-image-source",
+							"border-image-source",
+							"-webkit-border-image-slice",
+							"-moz-border-image-slice",
+							"-o-border-image-slice",
+							"border-image-slice",
+							"-webkit-border-image-width",
+							"-moz-border-image-width",
+							"-o-border-image-width",
+							"border-image-width",
+							"-webkit-border-image-outset",
+							"-moz-border-image-outset",
+							"-o-border-image-outset",
+							"border-image-outset",
+							"-webkit-border-image-repeat",
+							"-moz-border-image-repeat",
+							"-o-border-image-repeat",
+							"border-image-repeat",
+							"outline",
+							"outline-width",
+							"outline-style",
+							"outline-color",
+							"outline-offset",
+							"background",
+							"filter:progid:DXImageTransform.Microsoft.AlphaImageLoader",
+							"background-color",
+							"background-image",
+							"background-repeat",
+							"background-attachment",
+							"background-position",
+							"background-position-x",
+							"-ms-background-position-x",
+							"background-position-y",
+							"-ms-background-position-y",
+							"background-clip",
+							"background-origin",
+							"background-size",
+							"box-decoration-break",
+							"-webkit-box-shadow",
+							"-moz-box-shadow",
+							"box-shadow",
+							"-webkit-box-shadow",
+							"-moz-box-shadow",
+							"box-shadow",
+							"-webkit-box-shadow",
+							"-moz-box-shadow",
+							"box-shadow",
+							"-webkit-box-shadow",
+							"-moz-box-shadow",
+							"box-shadow",
+							"filter:progid:DXImageTransform.Microsoft.gradient",
+							"-ms-filter:'progid:DXImageTransform.Microsoft.gradient",
+							"text-shadow"
+						]
+					},
+					{
+						"properties": [
+							"font",
+							"font-family",
+							"font-size",
+							"font-weight",
+							"font-style",
+							"font-variant",
+							"font-size-adjust",
+							"font-stretch",
+							"font-effect",
+							"font-emphasize",
+							"font-emphasize-position",
+							"font-emphasize-style",
+							"font-smooth",
+							"line-height"
+						]
+					}
+				],
+				{
+					"severity": "warning"
+				}
+			]
+		}
+	},
+	"dllPlugin": {
+		"path": "node_modules/react-boilerplate-dlls",
+		"exclude": [
+			"chalk",
+			"compression",
+			"cross-env",
+			"express",
+			"ip",
+			"minimist",
+			"sanitize.css"
+		],
+		"include": [
+			"core-js",
+			"lodash",
+			"eventsource-polyfill"
+		]
+	},
+	"jest": {
+		"collectCoverageFrom": [
+			"app/**/*.{js,jsx}",
+			"!app/**/*.test.{js,jsx}",
+			"!app/*/RbGenerated*/*.{js,jsx}",
+			"!app/app.js",
+			"!app/global-styles.js",
+			"!app/*/*/Loadable.{js,jsx}"
+		],
+		"coverageThreshold": {
+			"global": {
+				"statements": 98,
+				"branches": 91,
+				"functions": 98,
+				"lines": 98
+			}
+		},
+		"moduleDirectories": [
+			"node_modules",
+			"app"
+		],
+		"moduleNameMapper": {
+			".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
+			".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
+		},
+		"setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
+		"testRegex": "tests/.*\\.test\\.js$"
+	}
 }
