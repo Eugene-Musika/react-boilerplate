@@ -16,7 +16,7 @@ import { FormattedMessage } from 'react-intl';
 {{#if wantActionsAndReducer}}
 import { createStructuredSelector } from 'reselect';
 {{/if}}
-import { compose } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 
 {{#if wantSaga}}
 import injectSaga from 'utils/injectSaga';
@@ -62,9 +62,9 @@ const mapStateToProps = createStructuredSelector({
 {{/if}}
 
 function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
+  return { actions: bindActionCreators({
+    // ...ImportedActions
+  }, dispatch) };
 }
 
 {{#if wantActionsAndReducer}}
