@@ -112,7 +112,7 @@ class Button extends React.Component {
 
 ### Setup
 
-Modify [`webpack.base.babel.js`][WebpackConfig]
+Modify [`webpack.config.base.babel.js`][WebpackConfig]
 to look like:
 
 ```diff
@@ -172,7 +172,7 @@ Install `sass-loader` and the `node-sass` dependancy.
 npm i -D sass-loader node-sass
 ```
 
-Modify [`webpack.base.babel.js`][WebpackConfig]
+Modify [`webpack.config.base.babel.js`][WebpackConfig]
 to look like:
 
 ```diff
@@ -219,7 +219,7 @@ Install `less-loader` and the `less` dependancy.
 npm i -D less-loader less
 ```
 
-Modify [`webpack.base.babel.js`][WebpackConfig]
+Modify [`webpack.config.base.babel.js`][WebpackConfig]
 to look like:
 
 ```diff
@@ -266,4 +266,4 @@ class Button extends React.Component {
 
 > For more information about LESS and the `less-loader` see https://github.com/webpack-contrib/less-loader.
 
-[WebpackConfig]: ../../internals/webpack/webpack.base.babel.js "Webpack config"
+[WebpackConfig]: ../../internals/webpack/webpack.config.base.babel.js "Webpack config"

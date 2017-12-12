@@ -6,7 +6,7 @@ application available when the users network connection isn't perfect.
 To remove offline capability, delete the `offline-plugin` from the
 [`package.json`](../../package.json), remove the import of the plugin in
 [`app.js`](../../app/app.js) and remove the plugin from the
-[`webpack.prod.babel.js`](../../internals/webpack/webpack.prod.babel.js).
+[`webpack.config.prod.babel.js`](../../internals/webpack/webpack.config.prod.babel.js).
 
 ### Removing add to homescreen functionality
 
@@ -24,7 +24,7 @@ remove it from the [`package.json`](../../package.json).
 ### Removing image optimization
 
 To remove image optimization, delete the `image-webpack-loader` from the
-[`package.json`](../../package.json), and remove the `image-loader` from [`webpack.base.babel.js`](../../internals/webpack/webpack.base.babel.js):
+[`package.json`](../../package.json), and remove the `image-loader` from [`webpack.config.base.babel.js`](../../internals/webpack/webpack.config.base.babel.js):
 ```
 …
 {
