@@ -1,11 +1,10 @@
 /* eslint consistent-return:0 */
-import argv from './argv';
-import express from 'express';
-import logger from './logger';
-import path from 'path';
-import port from './port';
-import setup from './middlewares/frontendMiddleware';
-
+const argv = require('./argv');
+const express = require('express');
+const logger = require('./logger');
+const path = require('path');
+const port = require('./port');
+const setup = require('./middlewares/frontendMiddleware');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok = isDev && process.env.ENABLE_TUNNEL || argv.tunnel ? require('ngrok') : false;
 const app = express();

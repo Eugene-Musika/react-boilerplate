@@ -12,7 +12,7 @@ module.exports = (app, options) => {
 
 		addProdMiddlewares(app, options);
 	} else {
-		const webpackConfig = require('../../internals/webpack/webpack.config.dev.babel').default;
+		const webpackConfig = require('../../internals/webpack/webpack.config.dev.babel');
 		const addDevMiddlewares = require('./addDevMiddlewares');
 
 		addDevMiddlewares(app, webpackConfig);

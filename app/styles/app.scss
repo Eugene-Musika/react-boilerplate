@@ -1,0 +1,8 @@
+@import "settings";
+@import "sanitize.css/sanitize.css";
+
+:global {
+	#app {
+		background-color: $brand-color;
+	}
+}

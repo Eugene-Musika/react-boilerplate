@@ -1,11 +1,11 @@
 /* eslint-disable sort-keys */
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import OfflinePlugin from 'offline-plugin';
-import path from 'path';
-import webpack from 'webpack';
-import webpackBaseConfig from './webpack.config.base.babel';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const webpackBaseConfig = require('./webpack.config.base.babel');
 
-export default webpackBaseConfig({
+module.exports = webpackBaseConfig({
 	// In production, we skip all hot-reloading stuff
 	entry: [
 		path.join(process.cwd(), 'app/app.js')
@@ -26,9 +26,9 @@ export default webpackBaseConfig({
 			async: true
 		}),
 
-		// Minify and optimize the index.html
+		// Minify and optimize the index.ejs (.ejs)
 		new HtmlWebpackPlugin({
-			template: 'app/index.html',
+			template: 'app/index.ejs',
 			minify: {
 				removeComments: true,
 				collapseWhitespace: true,
