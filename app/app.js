@@ -24,8 +24,13 @@ import App from './containers/App';
 // Import Language Provider
 import LanguageProvider from './containers/LanguageProvider';
 
+import configureStore from './configureStore';
+
+// Import i18n messages
+import { translationMessages } from './i18n';
+
 // Load the favicon, the manifest.json file and the .htaccess file
-/* eslint-disable import/no-webpack-loader-syntax */
+/* eslint-disable import/no-unresolved, sort-imports */
 import '!file-loader?name=[name].[ext]!./assets/favicon/favicon.ico';
 import '!file-loader?name=[name].[ext]!./assets/favicon/icon-72x72.png';
 import '!file-loader?name=[name].[ext]!./assets/favicon/icon-96x96.png';
@@ -39,13 +44,9 @@ import '!file-loader?name=[name].[ext]!./assets/favicon/icon-192x192.png';
 import '!file-loader?name=[name].[ext]!./assets/favicon/icon-384x384.png';
 import '!file-loader?name=[name].[ext]!./assets/favicon/icon-512x512.png';
 import '!file-loader?name=[name].[ext]!./manifest.json';
-import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line import/extensions
-/* eslint-enable import/no-webpack-loader-syntax */
+import 'file-loader?name=[name].[ext]!./.htaccess';
+/* eslint-enable import/no-unresolved, sort-imports */
 
-import configureStore from './configureStore';
-
-// Import i18n messages
-import { translationMessages } from './i18n';
 
 
 // Observe loading of Open Sans (to remove open sans, remove the <link> tag in
@@ -67,21 +68,21 @@ const MOUNT_NODE = document.getElementById('app');
 
 const render = messages => {
 	ReactDOM.render(
-    <Provider store={ store }>
-      <LanguageProvider messages={ messages }>
-        <ConnectedRouter history={ history }>
-          <App />
-        </ConnectedRouter>
-      </LanguageProvider>
-    </Provider>,
-    MOUNT_NODE
-  );
+		<Provider store={ store }>
+			<LanguageProvider messages={ messages }>
+				<ConnectedRouter history={ history }>
+					<App />
+				</ConnectedRouter>
+			</LanguageProvider>
+		</Provider>,
+		MOUNT_NODE
+	);
 };
 
 if (module.hot) {
-  // Hot reloadable React components and translation json files
-  // modules.hot.accept does not accept dynamic dependencies,
-  // have to be constants at compile-time
+	// Hot reloadable React components and translation json files
+	// modules.hot.accept does not accept dynamic dependencies,
+	// have to be constants at compile-time
 	module.hot.accept(['./i18n', 'containers/App'], () => {
 		ReactDOM.unmountComponentAtNode(MOUNT_NODE);
 		render(translationMessages);
@@ -89,7 +90,10 @@ if (module.hot) {
 }
 
 // Chunked polyfill for browsers without Intl support
-if (!window.Intl) {
+if (window.Intl) {
+	render(translationMessages);
+
+} else {
 	(new Promise(resolve => {
 		resolve(import('intl'));
 	}))
@@ -101,8 +105,6 @@ if (!window.Intl) {
 		.catch(err => {
 			throw err;
 		});
-} else {
-	render(translationMessages);
 }
 
 // Install ServiceWorker and AppCache in the end since

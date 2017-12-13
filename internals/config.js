@@ -1,4 +1,5 @@
-const resolve = require('path').resolve;
+/* eslint-disable sort-keys */
+const { resolve } = require('path');
 const pullAll = require('lodash/pullAll');
 const uniq = require('lodash/uniq');
 
@@ -46,7 +47,7 @@ const ReactBoilerplate = {
 			const include = pkg.dllPlugin.include || ReactBoilerplate.dllPlugin.defaults.include;
 			const includeDependencies = uniq(dependencyNames.concat(include));
 
-			return {reactBoilerplateDeps: pullAll(includeDependencies, exclude)};
+			return { reactBoilerplateDeps: pullAll(includeDependencies, exclude) };
 		}
 	}
 };

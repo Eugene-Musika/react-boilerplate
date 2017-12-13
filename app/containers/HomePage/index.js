@@ -4,32 +4,31 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
+import { makeSelectError, makeSelectLoading, makeSelectRepos } from '../App/selectors';
 
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import { makeSelectError, makeSelectLoading, makeSelectRepos } from 'containers/App/selectors';
-import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
+import { FormattedMessage } from 'react-intl';
+import H2 from '../../components/H2';
+import { Helmet } from 'react-helmet';
 import Input from './Input';
+import PropTypes from 'prop-types';
+import React from 'react';
+import ReposList from '../../components/ReposList';
 import Section from './Section';
-import messages from './messages';
-import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from '../../utils/injectReducer';
+import injectSaga from '../../utils/injectSaga';
+import { loadRepos } from '../App/actions';
 import { makeSelectUsername } from './selectors';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import styles from './styles.scss';
-import H1 from '../../components/H1/index';
+import styles from './styles.scss'; // eslint-disable-line no-unused-vars
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 	/**
@@ -44,8 +43,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 	render () {
 		const { loading, error, repos } = this.props;
 		const reposListProps = {
-			loading,
 			error,
+			loading,
 			repos
 		};
 
@@ -56,8 +55,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 					<meta name="description" content="A React.js Boilerplate application homepage" />
 				</Helmet>
 				<div>
-          <CenteredSection>
-            <h1 styleName='styles.text'>Hello</h1>
+					<CenteredSection>
+						<h1 styleName='styles.text'>Hello</h1>
 						<H2>
 							<FormattedMessage { ...messages.startProjectHeader } />
 						</H2>
@@ -93,18 +92,18 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
-	loading: PropTypes.bool,
 	error: PropTypes.oneOfType([
 		PropTypes.object,
 		PropTypes.bool
 	]),
+	loading: PropTypes.bool,
+	onChangeUsername: PropTypes.func,
+	onSubmitForm: PropTypes.func,
 	repos: PropTypes.oneOfType([
 		PropTypes.array,
 		PropTypes.bool
 	]),
-	onSubmitForm: PropTypes.func,
-	username: PropTypes.string,
-	onChangeUsername: PropTypes.func
+	username: PropTypes.string
 };
 
 export function mapDispatchToProps (dispatch) {
@@ -118,10 +117,10 @@ export function mapDispatchToProps (dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-	repos: makeSelectRepos(),
-	username: makeSelectUsername(),
+	error: makeSelectError(),
 	loading: makeSelectLoading(),
-	error: makeSelectError()
+	repos: makeSelectRepos(),
+	username: makeSelectUsername()
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
